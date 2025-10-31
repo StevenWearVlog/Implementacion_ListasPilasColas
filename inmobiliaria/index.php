@@ -23,6 +23,6 @@
     </ul>
 </div>
 
-<footer>© <?= date("Y") ?> Inmobiliaria Uniminuto</footer>
+
 </body>
 </html>
