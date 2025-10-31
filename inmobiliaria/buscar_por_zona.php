@@ -1,21 +1,33 @@
 <?php include "data.php"; ?>
-<h2>Buscar propiedades por zona y presupuesto</h2>
-<form method="POST">
-  Zona: <input type="text" name="zona" required><br>
-  Presupuesto máximo: <input type="number" name="max" required><br>
-  <button type="submit">Buscar</button>
-</form>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar por zona</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Buscar Propiedades por Zona</h2>
 
-<?php
-if ($_POST) {
-  $zona = $_POST['zona']; $max = $_POST['max'];
-  echo "<h3>Propiedades en zona $zona con precio <= $max:</h3><ul>";
-  foreach ($_SESSION['propiedades'] as $p) {
-    if ($p['zona'] == $zona && $p['precio'] <= $max && $p['disponible'])
-      echo "<li>{$p['direccion']} - \${$p['precio']}</li>";
+  <form method="POST">
+    <input type="text" name="zona" placeholder="Ingrese zona" required>
+    <button type="submit">Buscar</button>
+  </form>
+
+  <?php
+  if ($_POST) {
+    $zona = strtolower($_POST['zona']);
+    echo "<h3>Propiedades en la zona '$zona':</h3><ul>";
+    foreach ($_SESSION['propiedades'] as $p) {
+      if (strtolower($p['zona']) == $zona)
+        echo "<li>{$p['direccion']} - Precio: {$p['precio']}</li>";
+    }
+    echo "</ul>";
   }
-  echo "</ul>";
-}
-?>
-<a href="index.php">Volver</a>
+  ?>
 
+  <p><a href="index.php">Volver</a></p>
+</div>
+</body>
+</html>
